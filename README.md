@@ -1,5 +1,6 @@
 <!--
 https://pypi.org/project/readme-generator/
+https://pypi.org/project/python-readme-generator/
 -->
 
 [![](https://img.shields.io/pypi/pyversions/travis-env.svg?longCache=True)](https://pypi.org/project/travis-env/)
@@ -28,7 +29,7 @@ function|`__doc__`
 `travis_env.add(repo, var_name, var_value, public=False)` |add environment variable
 `travis_env.update(repo, **kwargs)` |update environment variable
 
-#### CLI
+#### Executable modules
 usage|`__doc__`
 -|-
 `python -m travis_env.clear repo` |clear all environment variables
@@ -44,11 +45,12 @@ WEBHOOK_URL
 ```
 
 #### Related projects
++   [`travis-cron` - travis cron management](https://pypi.org/project/travis-cron/)
++   [`travis-env` - travis environment variables management](https://pypi.org/project/travis-env/)
++   [`travis-exec` - execute command for every travis repo](https://pypi.org/project/travis-exec/)
 +   [`travis-generator` - `.travis.yml` generator](https://pypi.org/project/travis-generator/)
-+   [`travis-cron` - manage travis cron](https://pypi.org/project/travis-cron/)
-+   [`travis-env` - manage travis environment variables](https://pypi.org/project/travis-env/)
-+   [`travis-exec` - execute command for all travis repos](https://pypi.org/project/travis-exec/)
++   [`travis-image-status` - quickly get travis status from an image](https://pypi.org/project/travis-image-status/)
 
 <p align="center">
-    <a href="https://pypi.org/project/readme-generator/">readme-generator</a>
+    <a href="https://pypi.org/project/python-readme-generator/">python-readme-generator</a>
 </p>
