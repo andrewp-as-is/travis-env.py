@@ -1,6 +1,7 @@
-#!/usr/bin/env python
+__all__ = ['vars', 'add', 'clear', 'delete', 'patch', 'update']
+
+
 import os
-import public
 import travis_env.api
 
 """
@@ -8,7 +9,6 @@ https://docs.travis-ci.com/api/#settings-environment-variables
 """
 
 
-@public.add
 def vars(repo):
     ENDPOINT = os.getenv("TRAVIS_ENDPOINT", "https://api.travis-ci.org")
     url = "%s/repo/%s/env_vars" % (ENDPOINT, repo.replace("/", "%2F"))
@@ -16,7 +16,6 @@ def vars(repo):
     return {var["name"]: var["id"] for var in r.json()["env_vars"]}
 
 
-@public.add
 def add(repo, var_name, var_value, public=False):
     """add environment variable"""
     ENDPOINT = os.getenv("TRAVIS_ENDPOINT", "https://api.travis-ci.org")
@@ -38,12 +37,12 @@ def patch(repo, var_id, var_value, public=None):
     }
     if public is not None:
         data.update(public=public)
-    url = "%s/repo/%s/env_var/%s" % (ENDPOINT, repo.replace("/", "%2F"), var_id)
+    url = "%s/repo/%s/env_var/%s" % (ENDPOINT,
+                                     repo.replace("/", "%2F"), var_id)
     r = travis_env.api.request("PATCH", url, data)
     return r.json()
 
 
-@public.add
 def update(repo, **kwargs):
     """update environment variable"""
     data = vars(repo)
@@ -55,20 +54,20 @@ def update(repo, **kwargs):
             patch(repo, var_id, var_value)
 
 
-@public.add
 def delete(repo, var_name):
     """delete environment variable"""
     ENDPOINT = os.getenv("TRAVIS_ENDPOINT", "https://api.travis-ci.org")
     var_id = vars(repo).get(var_name, None)
     if var_id:
-        url = "%s/repo/%s/env_var/%s" % (ENDPOINT, repo.replace("/", "%2F"), var_id)
+        url = "%s/repo/%s/env_var/%s" % (ENDPOINT,
+                                         repo.replace("/", "%2F"), var_id)
         travis_env.api.request("DELETE", url)
 
 
-@public.add
 def clear(repo):
     """clear all environment variables"""
     ENDPOINT = os.getenv("TRAVIS_ENDPOINT", "https://api.travis-ci.org")
     for var_name, var_id in vars(repo).items():
-        url = "%s/repo/%s/env_var/%s" % (ENDPOINT, repo.replace("/", "%2F"), var_id)
+        url = "%s/repo/%s/env_var/%s" % (ENDPOINT,
+                                         repo.replace("/", "%2F"), var_id)
         travis_env.api.request("DELETE", url)
